@@ -2,9 +2,9 @@
 ##### Autumn/Winter 2023/24
 ----
 
-Group Id: **G00**
+Group Id: **G10**
 
 Members:
- - 11111 - Name1 Surname1
- - 22222 - Name2 Surname2
+ - 48459 - Diogo Santos
+ - 47224 - André Graça
  - 33333 - Name3 Surname3
