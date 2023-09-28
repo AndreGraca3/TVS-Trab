@@ -13,12 +13,11 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#define CH_ASSERT(test_expression) \
-	do { \
-		if (!(test_expression)) { \
-			exit(EXIT_FAILURE); \
-		}; \
-	} while (0)
+#define CH_ASSERT(test_expression) do { \
+    if (!(test_expression)) { \
+        exit(EXIT_FAILURE); \
+    } \
+} while (0)
 
 typedef void (*test_function)();
 

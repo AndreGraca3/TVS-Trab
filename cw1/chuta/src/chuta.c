@@ -18,27 +18,29 @@ static int run_test(test_function tfunc);
 void run_function_tests(test_function tests[], size_t num_tests, bool stop_at_first_failure) {
 	int executed = 0;
 	int succeded = 0;
+
 	for (int i = 0; i < num_tests; i++) {
 		int res = run_test(tests[i]);
 		executed++;
+		printf("Test[%d]: ", i);
+
 		if (WIFEXITED(res)) {
 			// EXIT
 			if (WEXITSTATUS(res) == EXIT_SUCCESS) {
-				printf("Test[%d]: SUCCESS\n", i);
+				printf("SUCCESS\n");
 				succeded++;
 			} else {
-				printf("Test[%d]: ASSERTION FAILED\n", i);
+				printf("ASSERTION_FAILED\n");
 				if (stop_at_first_failure) break;
 			}
 		} else {
 			// SIGNAL
-			printf("Test[%d]: TERMINATED(%d)\n", i, WTERMSIG(res));
+			printf("TERMINATED(%d)\n", WTERMSIG(res));
 			if (stop_at_first_failure) break;
 		}
 	}
-	printf("Total number of tests: %ld\n", num_tests);
-	printf("The number of tests executed: %d\n", executed);
-	printf("The number of tests succeded: %d\n", succeded);
+
+	printf("%d/%ld tests executed: %d passed, %d failed\n", executed, num_tests, succeded, executed - succeded);
 }
 
 static int run_test(test_function tfunc) {
