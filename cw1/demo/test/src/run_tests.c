@@ -16,7 +16,9 @@
 test_function all_function_tests[] = {
 	test_add,
 	test_sub,
+	test_sub_with_message,
 	test_strsize,
+	test_strsize_with_message,
 };
 
 //////////////////////////////
@@ -41,7 +43,7 @@ const size_t num_function_tests = ARRLEN(all_function_tests);
 
 int main() {
 	
-	run_function_tests(all_function_tests, num_function_tests, true);
+	run_function_tests(all_function_tests, num_function_tests, false);
 	
 	//run_stdio_program_tests(...);
 	
