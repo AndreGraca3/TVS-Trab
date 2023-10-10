@@ -41,5 +41,14 @@ typedef void (*test_function)();
 
 void run_function_tests(test_function tests[], size_t num_tests, bool stop_at_first_failure);
 
+typedef struct {
+    char *test_name;
+    char *command;
+    char *input_path;
+    char *output_path;
+} prog_test_spec;
+
+void run_stdio_program_tests(prog_test_spec tests[], size_t num_prog, bool stop_at_first_failure);
+
 #endif // CHUTA_H
 
