@@ -8,15 +8,21 @@
 
 <!-- short comment justifying the answer below -->
 
-0x0000000000000000 to 0x________________
+0x0000000000000000 to 0x00007FFFFFFFFFFF
 and
-0x________________ to 0xFFFFFFFFFFFFFFFF
+0xFFFF800000000000 to 0xFFFFFFFFFFFFFFFF
+
+In 4-level mapping there are 16 sign-extended bits meaning the 47th (starting from 0) bit controls the range of virtual addresses.
+Alternating the 47th bit and the sign extended bits we obtain these 2 ranges.
 
 
 **5-level mapping**
 
 <!-- short comment justifying the answer below -->
 
-0x________________ to 0x________________
+0x0000000000000000 to 0x00FFFFFFFFFFFFFF
 and
-...
+0xFF00000000000000 to 0xFFFFFFFFFFFFFFFF
+
+In 5-level mapping there are 7 sign-extended bits meaning the 56th (starting from 0) bit controls the range of virtual addresses.
+Alternating the 56th bit and the sign extended bits we obtain these 2 ranges.
