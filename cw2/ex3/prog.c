@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #define DATA_SIZE 16*1024*1024
+#define RSS_INCREASE_SIZE 2 * 1024 * 1024
 
 char info[DATA_SIZE];
 char data[DATA_SIZE] = {1};
@@ -14,8 +16,11 @@ int main() {
 
 	printf("#1 (press ENTER to continue)"); getchar();
 
-	// a
-	
+	for(int i = 0; i < RSS_INCREASE_SIZE; i++) {
+		info[i] = 'a';
+		char a = info[i];
+	}
+
 	printf("#2 (press ENTER to continue)"); getchar();
 
 	// b
