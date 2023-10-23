@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define DATA_SIZE 16*1024*1024
-#define RSS_INCREASE_SIZE 2 * 1024 * 1024
+#define RSS_INCREASE_SIZE 2*1024*1024
+#define PRIVATE_CLEAN_DATA_SIZE 128
 
 char info[DATA_SIZE];
 char data[DATA_SIZE] = {1};
@@ -18,13 +20,16 @@ int main() {
 
 	for(int i = 0; i < RSS_INCREASE_SIZE; i++) {
 		info[i] = 'a';
-		char a = info[i];
+		char temp = info[i];
 	}
 
 	printf("#2 (press ENTER to continue)"); getchar();
 
-	// b
-	
+	// increase private clean pages (not visible in /proc/pid/smaps cuz range is KB)
+	for(int i = 0; i < PRIVATE_CLEAN_DATA_SIZE; i++) {
+		char temp = data[i];
+	}
+
 	printf("#3 (press ENTER to continue)"); getchar();
 
 	// c
