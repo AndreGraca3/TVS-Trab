@@ -32,7 +32,9 @@ int main() {
 
 	printf("#3 (press ENTER to continue)"); getchar();
 
-	// c
+	pid_t pid = fork(); 
+	sleep(30);
+	if (pid == 0) return 0;
 
 	printf("#4 (press ENTER to continue)"); getchar();
 
