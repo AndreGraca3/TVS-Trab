@@ -4,6 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/mman.h>
+#include <dlfcn.h>
 
 #define DATA_SIZE 16*1024*1024
 #define RSS_INCREASE_SIZE 2*1024*1024
@@ -11,6 +12,7 @@
 #define CODE_REGION_SIZE 4 * 1024
 #define DATA_REGION_SIZE 256 * 1024
 #define NEW_DATA_REGION_SIZE 512*1024
+#define NEW_DATA_REGION_RSS_SIZE 256*1024
 
 char info[DATA_SIZE];
 char data[DATA_SIZE] = {1};
@@ -31,13 +33,13 @@ int main() {
 	printf("#2 (press ENTER to continue)"); getchar();
 
 	for(int i = 0; i < PRIVATE_CLEAN_DATA_SIZE; i++) {
-		char temp = data[i * (DATA_SIZE / 4096)];
+		char temp = data[i * (DATA_SIZE / PAGE_SIZE)];
 	}
 
 	printf("#3 (press ENTER to continue)"); getchar();
 
 	pid_t pid = fork(); 
-	sleep(30);
+	//sleep(30);
 	if (pid == 0) return 0;
 
 	printf("#4 (press ENTER to continue)"); getchar();
@@ -46,7 +48,7 @@ int main() {
 
 	printf("#5 (press ENTER to continue)"); getchar();
 
-	for(int i = 0; i < (NEW_DATA_REGION_SIZE / 2); i++) {
+	for(int i = 0; i < NEW_DATA_REGION_RSS_SIZE; i++) {
 		ptr[i] = 'a';
 	}
 
