@@ -25,9 +25,8 @@ int main() {
 
 	printf("#2 (press ENTER to continue)"); getchar();
 
-	// increase private clean pages (not visible in /proc/pid/smaps cuz range is KB)
 	for(int i = 0; i < PRIVATE_CLEAN_DATA_SIZE; i++) {
-		char temp = data[i];
+		char temp = data[i * (DATA_SIZE / 4096)];
 	}
 
 	printf("#3 (press ENTER to continue)"); getchar();
