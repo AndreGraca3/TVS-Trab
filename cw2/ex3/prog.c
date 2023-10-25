@@ -46,7 +46,9 @@ int main() {
 
 	printf("#5 (press ENTER to continue)"); getchar();
 
-	// e
+	for(int i = 0; i < (NEW_DATA_REGION_SIZE / 2); i++) {
+		ptr[i] = 'a';
+	}
 
 	printf("#6 (press ENTER to continue)"); getchar();
 
