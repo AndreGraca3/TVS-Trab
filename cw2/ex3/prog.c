@@ -10,6 +10,7 @@
 #define PRIVATE_CLEAN_DATA_SIZE 128
 #define CODE_REGION_SIZE 4 * 1024
 #define DATA_REGION_SIZE 256 * 1024
+#define NEW_DATA_REGION_SIZE 512*1024
 
 char info[DATA_SIZE];
 char data[DATA_SIZE] = {1};
@@ -41,7 +42,7 @@ int main() {
 
 	printf("#4 (press ENTER to continue)"); getchar();
 
-	// d
+	char *ptr = (char *)malloc(NEW_DATA_REGION_SIZE);
 
 	printf("#5 (press ENTER to continue)"); getchar();
 
