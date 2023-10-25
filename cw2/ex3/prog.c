@@ -2,10 +2,14 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <sys/mman.h>
 
 #define DATA_SIZE 16*1024*1024
 #define RSS_INCREASE_SIZE 2*1024*1024
 #define PRIVATE_CLEAN_DATA_SIZE 128
+#define CODE_REGION_SIZE 4 * 1024
+#define DATA_REGION_SIZE 256 * 1024
 
 char info[DATA_SIZE];
 char data[DATA_SIZE] = {1};
@@ -46,13 +50,17 @@ int main() {
 
 	printf("#6 (press ENTER to continue)"); getchar();
 
-	// f
+	void *data_region = mmap(NULL, DATA_REGION_SIZE, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	void *code_region = mmap(NULL, CODE_REGION_SIZE, PROT_EXEC | PROT_READ, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
 	
 	printf("#7 (press ENTER to continue)"); getchar();
 
 	// g
 
 	printf("END (press ENTER to continue)"); getchar();
+
+	munmap(code_region, CODE_REGION_SIZE);
+    munmap(data_region, DATA_REGION_SIZE);
 
 	return 0;
 }
