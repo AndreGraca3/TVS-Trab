@@ -29,10 +29,10 @@ test_function all_function_tests[] = {
 char input_path[] = "files/input.txt";
 
 prog_test_spec all_program_tests[] = {
-	{"cat test", "cat", input_path, "files/cat_output.txt"}, // Succeded!
+	{"cat test", "cat", input_path, "files/input.txt"}, // Succeded!
 	{"grep test", "grep -i ficheiro", input_path, "files/grep_output.txt"},
 	{"sort test", "sort", input_path, "files/sort_output.txt"}, // Succeded!
-	{"another sort test", "sort", input_path, "files/wc_output.txt"}, // Note: this test is meant to fail !
+	{"failed sort test", "sort", input_path, "files/wc_output.txt"}, // Note: this test is meant to fail !
 	{"wc test", "wc", input_path, "files/wc_output.txt"} // Succeded!
 };
 
@@ -47,8 +47,10 @@ const size_t num_program_tests = ARRLEN(all_program_tests);
 
 int main() {
 	
+	puts("Running all tests...\n");
 	run_function_tests(all_function_tests, num_function_tests, false);
 	
+	puts("\nRunning all program tests...\n");
 	run_stdio_program_tests(all_program_tests, num_program_tests, false);
 	
 	return 0;

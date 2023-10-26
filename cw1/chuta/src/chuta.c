@@ -83,7 +83,7 @@ static int run_test(test_function tfunc) {
 void run_stdio_program_tests(prog_test_spec tests[], size_t num_tests, bool stop_at_first_failure) {
 	for(int i = 0; i < num_tests; i++) {
 		prog_test_spec prog = tests[i];
-		printf("[%s]:", prog.test_name);
+		printf("[%s]: ", prog.test_name);
 		int res = run_prog(prog);
 		if (res != 0) {
 			puts("Assertion Failed!");
@@ -96,29 +96,18 @@ void run_stdio_program_tests(prog_test_spec tests[], size_t num_tests, bool stop
 	}
 }
 
-//int str_occurencies(char *string1, char *string2) {
-//    char *firstCharacter = strstr(string1, string2);
-//
-//    int count = 0;
-//    while(firstCharacter != NULL) {
-//        count++;
-//        char *newStart = firstCharacter + strlen(string2);
-//        firstCharacter = strstr(newStart, string2);
-//    }
-//    return count;
-//}
+void split(char *input, char *output[], int *arg_count) {
+    *arg_count = 0;
 
-//void  parse(char *line, char **argv) {
-//     while (*line != '\0') {       /* if not the end of line ....... */ 
-//          while (*line == ' ' || *line == '\t' || *line == '\n')
-//               *line++ = '\0';     /* replace white spaces with 0    */
-//          *argv++ = line;          /* save the argument position     */
-//          while (*line != '\0' && *line != ' ' && 
-//                 *line != '\t' && *line != '\n') 
-//               line++;             /* skip the argument until ...    */
-//     }
-//     *argv = '\0';                 /* mark the end of argument list  */
-//}
+    char *token = strtok(input, " ");
+    
+    while (token != NULL) {
+        output[*arg_count] = token;
+
+        token = strtok(NULL, " ");
+        (*arg_count)++;
+    }
+}
 
 static int run_prog(prog_test_spec prog) {
 	int pipefd[2];
@@ -140,26 +129,20 @@ static int run_prog(prog_test_spec prog) {
 		dup2(inputFile, 0); // redirec child's input to input.txt
 		close(inputFile); // close file
 
-		//char *command = prog.command;
-		//char string_command[strlen(command)];
-    	//strcpy(string_command, command);
-    	//char delimeter[] = " ";
-   
-    	//int n_args = str_occurencies(command, delimeter) + 1;
-    
-    	//char *args[n_args];
-
-		//parse(string_command, args);
-
-    	//execvp(args[0], args);
-		execlp("sh", "sh", "-c", prog.command, NULL);
+		char *args[256];
+	    int arg_count;
+		char input[256];
+		strcpy(input, prog.command); // make a copy of the command
+		split(input, args, &arg_count);
+		args[arg_count] = NULL; // set last argument to NULL for execvp
+		execvp(args[0], &args[1]);
 	} else {
 		// parent
 		close(pipefd[1]);
 
 		int outputFile = open(prog.output_path, O_RDONLY, 0640);
 		if (outputFile == -1) {
-			perror("open out.txt failed");
+			perror("Opening expected output file failed");
 			exit(1);
 		}
 	
@@ -174,7 +157,6 @@ static int run_prog(prog_test_spec prog) {
 			actual[nActual] = 0;	
 		}
 		close(pipefd[0]);
-
 		return strcmp(actual, expected);
 	}
 	return -1;
