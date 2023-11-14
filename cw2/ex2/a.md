@@ -6,7 +6,7 @@ como parametros o valor -100 para "dirfd" que simobliza AT_FDCWD para especifica
 está a correr), o ponteiro para a string "/etc/os-release", em "pathname", escrito em bytes e o valor 0 nas "flags", ou seja não
 especificando nenhuma flag adicional na abertura do ficheiro.
     Na segunda vez é chamada a função "off_t lseek(int fd, off_t offset, int whence);", com o código 8, que tem como retorno o
-offset emque se encontra o ponteiro do ficheiro. É passado como primeiro parametro o file descriptor do ficheiro aberto na função
+offset em que se encontra o ponteiro do ficheiro. É passado como primeiro parametro o file descriptor do ficheiro aberto na função
 anterior. O segundo contém o valor a 0, sem offset e por fim, é colocado o valor 2 ('SEEK_END') no último parametro, ou seja o
 ponteiro do ficheiro ficará no fim do ficheiro.
     Na próxima chamada é utilizada a função "void *mmap(void addr[.length], size_t length, int prot, int flags, int fd, off_t

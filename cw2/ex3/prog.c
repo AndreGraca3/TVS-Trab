@@ -27,13 +27,12 @@ int main() {
 	// a
 	for(int i = 0; i < RSS_INCREASE_SIZE; i++) {
 		info[i] = 'a';
-		char temp = info[i];
 	}
 
 	printf("#2 (press ENTER to continue)"); getchar();
 	// b
 	for(int i = 0; i < PRIVATE_CLEAN_DATA_SIZE; i++) {
-		char temp = data[i * (DATA_SIZE / PAGE_SIZE)];
+		char temp = data[i * PAGE_SIZE];
 	}
 
 	printf("#3 (press ENTER to continue)"); getchar();
