@@ -24,4 +24,4 @@ Commands:
         $ sudo nginx -t 
 
     restart nginx:
-        $ sudo systemctl restart nginx
+        $ sudo systemctl reload nginx
