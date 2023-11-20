@@ -1,6 +1,11 @@
 #!/bin/bash
 
-sudo systemctl start elasticsearch
+if [ "$(id -u)" -ne 0 ]; then
+        echo "Only an admin can do that."
+        exit 1
+fi
+
+systemctl start elasticsearch
 
 NGINX_CONF=/etc/nginx/sites-available/tvsapp
 
@@ -8,8 +13,9 @@ PORTS=$( cat "$NGINX_CONF" | grep ":[0-9]\+;" | cut -d: -f2 | tr -d ';')
 
 for PORT in $PORTS;
 do
-	sudo systemctl start tvsapp@"$PORT".service
+	systemctl start tvsapp@"$PORT".service
 done
 
-sudo ln -s /etc/nginx/sites-available/tvsapp /etc/nginx/sites-enabled/
+ln -s /etc/nginx/sites-available/tvsapp /etc/nginx/sites-enabled/
 
+systemctl reload nginx
