@@ -26,11 +26,3 @@ echo -e '\t\t'proxy_pass http://tvsapp_backend/';' >> "$NGINX_CONF"
 echo -e '\t'} >> "$NGINX_CONF"
 echo } >> "$NGINX_CONF"
 exit 0
-
-
-
-
-
-
-
-
