@@ -14,7 +14,9 @@ do
 	NEW_PORT=$(($LAST_PORT + 1))
 	sed -i "/$LAST_PORT/a\\\tserver 127.0.0.1:$NEW_PORT;" $NGINX_CONF
 
-	systemctl start tvsapp@"$NEW_PORT".service
+	if [ $(./solution-status.sh) == "active" ]; then
+		systemctl start tvsapp@"$NEW_PORT".service
+	fi
 done
 
 systemctl reload nginx
