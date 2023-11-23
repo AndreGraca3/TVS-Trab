@@ -12,7 +12,7 @@ fi
 ./tvsapp-stop.sh
 
 echo upstream tvsapp_backend { > "$NGINX_CONF"
-for index in $(seq 0 $SCALE);
+for index in $(seq 0 $((SCALE-1)));
 do
 	sum=$(( "$BASE" + "$index" ))
 	echo -e '\t'server 127.0.0.1:$sum';' >> "$NGINX_CONF"
