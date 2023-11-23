@@ -16,7 +16,7 @@ while getopts ":f:l:" opt; do
     esac
 done
 
-result=$(cat "$NGINX_CONF" | grep ":[0-9]\+;" | cut -d: -f2 | tr -d ';' | sort)
+result=$(cat "$NGINX_CONF" | grep ":[0-9]\+;" | cut -d: -f2 | tr -d ';' | sort -n)
 
 if [ -n "$first_n" ]; then
     echo "$result" | head -n "$first_n"
