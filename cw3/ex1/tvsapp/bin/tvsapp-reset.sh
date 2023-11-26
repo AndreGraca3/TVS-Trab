@@ -9,7 +9,7 @@ if [ "$(id -u)" -ne 0 ]; then
    exit 1
 fi
 
-./tvsapp-stop.sh
+/opt/isel/tvs/tvsapp/bin/tvsapp-stop.sh
 
 echo upstream tvsapp_backend { > "$NGINX_CONF"
 for index in $(seq 0 $((SCALE-1)));

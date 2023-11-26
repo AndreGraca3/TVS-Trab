@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PORTS=$(./get-ports.sh)
+PORTS=$( /opt/isel/tvs/tvsapp/bin/get-ports.sh )
 
 if [ -z "$PORTS" ]; then
 	echo "No ports found."
