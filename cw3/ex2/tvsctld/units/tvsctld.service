@@ -1,0 +1,10 @@
+[Unit]
+Description=TVS Control Application
+
+[Service]
+ExecStart=/opt/isel/tvs/tvsctld/bin/tvsctld
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

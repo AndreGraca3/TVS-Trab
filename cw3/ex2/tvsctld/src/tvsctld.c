@@ -1,7 +1,7 @@
 #include <systemd/sd-daemon.h>
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/socket.h>
@@ -41,7 +41,8 @@ void * process_connection(void * ptr) {
 	printf("Arguments received %s\n", args);
 
 	char cmd[100];
-	if(strcmp(command, "reset") == 0){
+
+	if(strcmp(command, "reset") == 0) {
 		strcpy(cmd, "sudo /opt/isel/tvs/tvsapp/bin/tvsapp-reset.sh ");
 		system(strcat(cmd, args));
 	} else if(strcmp(command, "inc") == 0) {
@@ -56,9 +57,11 @@ void * process_connection(void * ptr) {
 	} else if(strcmp(command, "start") == 0) {
 		system("sudo /opt/isel/tvs/tvsapp/bin/tvsapp-start.sh");
 	} else if(strcmp(command,"status") == 0) {
+		int saved_stdout = dup(1);
+		dup2(conn_fd, 1);
 		system("sudo /opt/isel/tvs/tvsapp/bin/tvsapp-status.sh");
+		dup2(saved_stdout, 1);
 	}
-
 	exit(0);
 }
 
