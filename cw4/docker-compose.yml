@@ -1,0 +1,36 @@
+name: "tvs"
+
+services:
+  entry:
+    image: alpine
+    tty: true
+    depends_on:
+      - webapp
+    networks:
+      - alphanet
+
+  webapp:
+    build: tvsapp
+    restart: "no"
+    ports:
+      - "4001:4010"
+      - "4002:4010"
+      - "4003:4010"
+      - "4004:4010"
+    networks:
+      - alphanet
+      - sigmanet
+
+  datastore:
+    image: elasticsearch:8.11.1
+    ports:
+      - 9200:
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    networks:
+      - sigmanet
+
+networks:
+  alphanet: {}
+  sigmanet: {}
